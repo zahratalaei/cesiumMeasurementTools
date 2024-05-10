@@ -1,0 +1,33 @@
+{
+	"name": "cesium-webpack-devserver",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "node_modules/.bin/webpack --config webpack.config.js",
+		"dev": "webpack-dev-server --config webpack.config.js --open"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"copy-webpack-plugin": "^11.0.0",
+		"css-loader": "^6.8.1",
+		"dotenv": "^16.3.1",
+		"html-webpack-harddisk-plugin": "^2.0.0",
+		"html-webpack-plugin": "^5.5.3",
+		"node-polyfill-webpack-plugin": "^2.0.1",
+		"prettier": "^3.0.0",
+		"style-loader": "^3.3.3",
+		"url-loader": "^4.1.1",
+		"webpack": "^5.88.2",
+		"webpack-cli": "^5.1.4",
+		"webpack-dev-server": "^4.15.1"
+	},
+	"dependencies": {
+		"cesium": "^1.117.0",
+		"url": "^0.11.1"
+	}
+}
