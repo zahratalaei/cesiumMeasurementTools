@@ -1,5 +1,4 @@
-import {viewer} from '../../index.js';
-
+import { viewer ,scene} from "../../index.js";
 import { addMark } from "../../entities/addMark.js";
 import { generateUniqueID } from "../../utiities/generateUniqueID.js";
 import * as Cesium from 'cesium/Cesium'
@@ -13,9 +12,9 @@ import * as Cesium from 'cesium/Cesium'
   let terrainHeight = null;
  
   function getPosition(position) {
-    const pickedObject = viewer.scene.pick(position);
-    if (viewer.scene.pickPositionSupported && Cesium.defined(pickedObject)) {
-      const point = viewer.scene.pickPosition(position);
+    const pickedObject = scene.pick(position);
+    if (scene.pickPositionSupported && Cesium.defined(pickedObject)) {
+      const point = scene.pickPosition(position);
       //console.log("point "+ point);
   
       if (Cesium.defined(point)) {
@@ -40,7 +39,7 @@ import * as Cesium from 'cesium/Cesium'
         const tempPoint = result.cartoghraphicPoint;
         const carto = result.cartographic;
   
-        terrainHeight = viewer.scene.globe.getHeight(carto);
+        terrainHeight = scene.globe.getHeight(carto);
         startPoint = cartoghraphicToCartesian(
           tempPoint.lng,
           tempPoint.lat,
@@ -68,7 +67,7 @@ import * as Cesium from 'cesium/Cesium'
         labelEntity = new Cesium.Entity({
           position: midpoint,
           label: {
-            text: distance.toFixed(2) + " m",
+            text: distance.toFixed(2) + " meters",
             font: "10px sans-serif",
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             pixelOffset: new Cesium.Cartesian2(-50, 0),

@@ -1,5 +1,4 @@
-
-export function clearAllEntities(viewer,state){
+export function clearAllEneities(viewer,state){
     viewer.entities.removeAll();
     state.startPoint = null;
     state.endPoint = null;
@@ -10,5 +9,4 @@ export function clearAllEntities(viewer,state){
     state.highlightDiv.style.display = "none";
     state.selectedPoints = [];
     state.selectedPointIDs = [];
-    console.log("state:", state)
   }

@@ -3,12 +3,13 @@ import { ceisumSetup } from "./cesiumSetup.js";
 import { handleClick } from "./measurement/handlers/measureTwoPointsClickHandler.js";
 import { handleMouseMove } from "./measurement/handlers/handleMouseOver.js";
 import { handleClickCurve } from "./drawCurve/handlers/handleClickCurve.js";
-import { clearAllEneities } from "./entities/clearAllEntities.js";
+import { clearAllEntities } from "./entities/clearAllEntities.js";
 import { createHighlightDiv } from "./entities/createHighlightDiv.js";
 import { updateButtonStyle } from "./entities/updateStyles.js";
 import { measureMultiplePairsClickHandler, handleMouseMoveMultiPairs } from "./multiplePointsMeasurement/handlers/measureMultiplePairsClickHandler.js";
 import { heightMeasurementClickHandler } from "./heightMeasurement/handlers/heightMeasurementClickHandler.js";
 //initialization of the viewer
+clearAllEntities
 export const viewer = new Cesium.Viewer("cesiumContainer", {
   terrain: Cesium.Terrain.fromWorldTerrain({
     requestVertexNormals: true,
@@ -48,7 +49,7 @@ function enableMeasurementMode() {
   // Update the boolean flag for measurement mode
   activeMode = 1;
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
 
   handler.setInputAction(handleClick, Cesium.ScreenSpaceEventType.LEFT_CLICK);
   moveHandler.setInputAction(handleMouseMove, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
@@ -70,7 +71,7 @@ function disableMeasurementMode() {
   updateButtonStyle('measurementButton', '','');
   
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
 
 }
 
@@ -83,7 +84,7 @@ async function enableMultiPointSelectionMode() {
   const { handleMultiPointClick: multiPointClickHandler } = await import("./multiplePointSelection/handlers/selectMultiplePointsClickHandler.js");
   handleMultiPointClick = multiPointClickHandler; 
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
 
   handler.setInputAction(handleMultiPointClick, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
@@ -98,7 +99,7 @@ function disableMultiPointSelectionMode() {
   // Update the boolean flag for multi-point selection mode
   activeMode = null;
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
 
   //Disable multi-point selection mode if it was previously active
   handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
@@ -109,7 +110,7 @@ function disableMultiPointSelectionMode() {
 // Function to handle the multi-point selection mode (initially empty)
 async function enableMultiPointMeasurmentMode() {
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
   // Update the boolean flag for multi-point selection mode
   activeMode = 3;
   
@@ -128,7 +129,7 @@ function disableMultiPointMeasurmentMode() {
   // Update the boolean flag for multi-point selection mode
   activeMode = null;
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
 
   //Disable multi-point selection mode if it was previously active
   handler.removeInputAction(Cesium.ScreenSpaceEventType.MOUSE_MOVE);
@@ -142,7 +143,7 @@ function enableDrawCurveMode() {
   // Update the boolean flag for measurement mode
   activeMode = 4;
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
 
   handler.setInputAction(handleClickCurve, Cesium.ScreenSpaceEventType.LEFT_CLICK);
   //moveHandler.setInputAction(handleMouseMove, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
@@ -164,7 +165,7 @@ function disableDrawCurveMode() {
   updateButtonStyle('CurveButton', '','');
   
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
 }
 
 //disable all modes
@@ -179,7 +180,7 @@ function enableHeightMeasurementMode() {
   // Update the boolean flag for measurement mode
   activeMode = 5;
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
 
   handler.setInputAction(heightMeasurementClickHandler, Cesium.ScreenSpaceEventType.LEFT_CLICK);
   //moveHandler.setInputAction(handleMouseMove, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
@@ -203,7 +204,7 @@ function disableHeightMeasurementMode() {
   updateButtonStyle('HeightButton', '','');
   
   // clear All entities
-  clearAllEneities(viewer,state);
+  clearAllEntities(viewer,state);
 }
 
 

@@ -1,10 +1,9 @@
-import { viewer as viewerInstance } from '../index.js';
+import { viewer } from "../index.js";
 import * as Cesium from 'cesium/Cesium'
 
 //Add mark to the selected point
 export function addMark(position, id) {
-     
-    return viewerInstance.entities.add({
+    viewer.entities.add({
         id:id,
         position: position,
         point: {
@@ -15,7 +14,4 @@ export function addMark(position, id) {
             disableDepthTestDistance: Number.POSITIVE_INFINITY,
         },
     });
-   
-    
-
 }

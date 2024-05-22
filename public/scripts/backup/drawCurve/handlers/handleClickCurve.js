@@ -1,5 +1,5 @@
-import * as Cesium from "cesium/Cesium";
-import { viewer} from '../../index.js';
+import * as Cesium from 'cesium/Cesium'
+import { viewer,state } from "../../index.js";
 import { getPosition } from "../../utiities/getPosition.js";
 import { addMark } from "../../entities/addMark.js";
 import { generateUniqueID } from "../../utiities/generateUniqueID.js";
@@ -49,7 +49,6 @@ function drawCurve() {
 
 
 export function handleClickCurve(click) {
-    
     viewer.selectedEntity = undefined;
     if (!drawComplete) {
         const point = getPosition(click.position);

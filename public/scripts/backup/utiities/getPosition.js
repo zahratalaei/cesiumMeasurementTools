@@ -1,11 +1,8 @@
 import * as Cesium from 'cesium/Cesium'
-import { viewer as viewerInstance } from '../index.js';
-import { state } from "../index.js"
+import { scene, state } from "../index.js";
 export function getPosition(position) {
-	
-	const scene = viewerInstance.scene;
-	const pickedObject = viewerInstance.scene.pick(position,1,1);
-	if (viewerInstance.scene.pickPositionSupported && Cesium.defined(pickedObject)) {
+	const pickedObject = scene.pick(position,1,1);
+	if (scene.pickPositionSupported && Cesium.defined(pickedObject)) {
 		if (pickedObject.id && state.selectedPointIDs.includes(pickedObject.id.id)) {
 			return pickedObject.id.position._value; // Notice the change here
 		}

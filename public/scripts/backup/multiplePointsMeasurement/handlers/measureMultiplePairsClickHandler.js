@@ -1,17 +1,16 @@
 import * as Cesium from 'cesium/Cesium'
-import {state} from "../../index.js";
-import { viewer} from '../../index.js';
+import { viewer, scene ,state} from "../../index.js";
 //import { getPosition } from "../../multiplePointSelection/utilities/getPosition";
 import { getPosition } from "../../utiities/getPosition.js";
 import { generateUniqueID } from "../../utiities/generateUniqueID.js";
 
 import { createLine } from "../../entities/createPolyline.js";
-import { addMark } from '../../entities/addMark.js';
 let labels = []; // Array to hold all labels
 let tempPolyline = null; // Temporary polyline for dynamic display
+
 export function handleMouseMoveMultiPairs(movement) {
 	if (state.selectedPoints.length > 0) {
-		const middlePoint = getPosition(movement.endPosition, viewer.scene, state.selectedPointIDs);
+		const middlePoint = getPosition(movement.endPosition, scene, state.selectedPointIDs);
 		if (middlePoint) {
 			if (tempPolyline) {
 				viewer.entities.remove(tempPolyline);
@@ -25,7 +24,7 @@ export function handleMouseMoveMultiPairs(movement) {
 export function measureMultiplePairsClickHandler(click) {
 	viewer.selectedEntity = undefined;
 
-	const clickedPoint = getPosition(click.position, viewer.scene, state.selectedPointIDs);
+	const clickedPoint = getPosition(click.position, scene, state.selectedPointIDs);
 
 	if (!clickedPoint) {
 		console.log("No point clicked");
@@ -35,7 +34,6 @@ export function measureMultiplePairsClickHandler(click) {
 	let uniqueID = generateUniqueID(clickedPoint);
 
 	if (state.selectedPointIDs.includes(uniqueID)) {
-		console.log("selectedPoint");
 		// If the point is already selected, de-select it
 		const deselectedPointIndex = state.selectedPoints.findIndex(
 			(point) => point.id === uniqueID
@@ -70,7 +68,7 @@ export function measureMultiplePairsClickHandler(click) {
 				const label = viewer.entities.add({
 					position: midpoint,
 					label: {
-						text: distance.toFixed(1) + " m",
+						text: distance.toFixed(2) + " meters",
 						font: "14px sans-serif",
 						fillColor: Cesium.Color.BLACK,
 						// outlineColor: Cesium.Color.BLACK,
@@ -83,24 +81,22 @@ export function measureMultiplePairsClickHandler(click) {
 			}
 		}
 	} else {
-		console.log("newPoint");
 		// If the point is not selected, add it to the selectedPointIDs array
 		state.selectedPointIDs.push(uniqueID);
 
 		//Add marker to the selected point
-		// const markerEntity = viewer.entities.add({
-		// 	id: uniqueID,
-		// 	position: clickedPoint,
-		// 	point: {
-		// 		pixelSize: 7,
-		// 		color: Cesium.Color.YELLOW,
-		// 		//outlineColor: Cesium.Color.BLACK,
-		// 		//outlineWidth: 2,
-		// 		disableDepthTestDistance: Number.POSITIVE_INFINITY,
-		// 	},
-		// });
-		
-		const markerEntity = addMark(clickedPoint,uniqueID)
+		const markerEntity = viewer.entities.add({
+			id: uniqueID,
+			position: clickedPoint,
+			point: {
+				pixelSize: 7,
+				color: Cesium.Color.YELLOW,
+				//outlineColor: Cesium.Color.BLACK,
+				//outlineWidth: 2,
+				disableDepthTestDistance: Number.POSITIVE_INFINITY,
+			},
+		});
+		//markerEntity = addMark(clickedPoint,uniqueID)
 		state.selectedPoints.push({
 			id: uniqueID,
 			position: clickedPoint,
@@ -138,13 +134,11 @@ export function measureMultiplePairsClickHandler(click) {
 			const label = viewer.entities.add({
 				position: midpoint,
 				label: {
-					text: distance.toFixed(1) + " m",
+					text: distance.toFixed(2) + " meters",
 					font: "14px sans-serif",
 					fillColor: Cesium.Color.BLACK,
 					style: Cesium.LabelStyle.FILL_AND_OUTLINE,
 					pixelOffset: new Cesium.Cartesian2(0, -20),
-					showBackground: true,
-        			backgroundColor: Cesium.Color.WHITE,
 					disableDepthTestDistance: Number.POSITIVE_INFINITY,
 
 				},

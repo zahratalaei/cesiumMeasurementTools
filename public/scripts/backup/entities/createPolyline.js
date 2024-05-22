@@ -1,8 +1,7 @@
+import { state,viewer } from "../index.js";
 import * as Cesium from 'cesium/Cesium'
-import { state } from '../index.js';
-import { viewer as viewerInstance } from '../index.js';
-let polylineEntity = null;
 
+let polylineEntity = null;
 export function createPolyline() {
   if (!state.polyline) {
     // Create a new Entity for the polyline
@@ -22,13 +21,12 @@ export function createPolyline() {
     });
 
     // Add the polyline entity to the viewer.entities collection
-    viewerInstance.entities.add(state.polyline);
+    viewer.entities.add(state.polyline);
   }
 }
 export function createLine(p1,p2) {
-// const viewer = viewerInstance;
   if (polylineEntity) {
-    viewerInstance.entities.remove(polylineEntity);
+    viewer.entities.remove(polylineEntity);
 }
 
     // Create a new Entity for the polyline
@@ -48,7 +46,7 @@ export function createLine(p1,p2) {
     });
 
     // Add the polyline entity to the viewer.entities collection
-    viewerInstance.entities.add(polylineEntity);
+    viewer.entities.add(polylineEntity);
   // }
 }
   
